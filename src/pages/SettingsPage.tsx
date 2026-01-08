@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import { useRef } from 'react';
 import { useSettings } from '@/hooks/use-settings';
-import { Upload, Settings as SettingsIcon } from 'lucide-react';
+import { Upload, Settings as SettingsIcon, Info as InfoIcon } from 'lucide-react';
 
 export default function SettingsPage() {
     const { settings, updateSettings } = useSettings();
@@ -27,6 +28,21 @@ export default function SettingsPage() {
                     <h2 className="text-xl font-bold">Einstellungen <span className="font-normal text-muted-foreground">verwalten</span></h2>
                 </div>
             </div>
+
+            {/* Info / About Link */}
+            <Link to="/info" className="block bg-gradient-to-r from-primary/5 to-transparent p-4 rounded-lg border border-primary/10 mb-6 group hover:border-primary/30 transition-colors">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-background rounded-full text-primary shadow-sm group-hover:scale-110 transition-transform">
+                            <InfoIcon size={20} />
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-sm">Wofür ist diese App?</h3>
+                            <p className="text-xs text-muted-foreground">Erfahre mehr über Besteuerung & Features</p>
+                        </div>
+                    </div>
+                </div>
+            </Link>
 
             <div className="space-y-6">
                 {/* Logo Section */}

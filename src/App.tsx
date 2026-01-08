@@ -9,6 +9,7 @@ import AnkaufPage from '@/pages/AnkaufPage';
 import VerkaufPage from '@/pages/VerkaufPage';
 import BelegePage from '@/pages/BelegePage';
 import SettingsPage from '@/pages/SettingsPage';
+import InfoPage from '@/pages/InfoPage';
 
 function App() {
   const { settings } = useSettings();
@@ -45,6 +46,7 @@ function App() {
         <Route path="verkauf" element={<VerkaufPage />} />
         <Route path="belege" element={<BelegePage />} />
         <Route path="settings" element={<SettingsPage />} />
+        <Route path="info" element={<InfoPage />} />
       </Route>
     </Routes>
   );
