@@ -73,7 +73,7 @@
 
   @keyframes slide-up {
     from {
-      transform: translateY(20px);
+      transform: translateY(10px);
       opacity: 0;
     }
 
@@ -97,27 +97,9 @@
   }
 }
 
-@utility glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-@utility glass-dark {
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
- 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
+  so we've added these compatibility styles to sure everything still looks the same.
 */
 @layer base {
 
@@ -130,67 +112,86 @@
   }
 }
 
+@utility glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@utility glass-dark {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    /* Default hue if not set (Slate-ish) */
+    --primary-hue: 222.2;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    /* Mix primary hue into background (tinted white) */
+    --background: var(--primary-hue) 20% 99%;
+    --foreground: var(--primary-hue) 20% 5%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --card: var(--primary-hue) 20% 99.5%;
+    --card-foreground: var(--primary-hue) 20% 5%;
 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --popover: var(--primary-hue) 20% 99.5%;
+    --popover-foreground: var(--primary-hue) 20% 5%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --secondary: var(--primary-hue) 10% 96%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --muted: var(--primary-hue) 10% 96%;
+    --muted-foreground: var(--primary-hue) 5% 45%;
+
+    --accent: var(--primary-hue) 10% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+    --border: var(--primary-hue) 20% 92%;
+    --input: var(--primary-hue) 20% 92%;
+    --ring: var(--primary-hue) 20% 10%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 210 40% 98%;
+    /* Mix primary hue into dark background (tinted black) */
+    --background: var(--primary-hue) 30% 2%;
+    --foreground: var(--primary-hue) 10% 98%;
 
-    --card: 0 0% 4%;
-    --card-foreground: 0 0% 98%;
+    --card: var(--primary-hue) 30% 3%;
+    --card-foreground: var(--primary-hue) 10% 98%;
 
-    --popover: 0 0% 4%;
-    --popover-foreground: 0 0% 98%;
+    --popover: var(--primary-hue) 30% 3%;
+    --popover-foreground: var(--primary-hue) 10% 98%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: var(--primary-hue) 30% 10%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 63.9%;
+    --muted: var(--primary-hue) 30% 10%;
+    --muted-foreground: var(--primary-hue) 10% 65%;
 
-    --accent: 0 0% 12%;
-    --accent-foreground: 0 0% 98%;
+    --accent: var(--primary-hue) 30% 10%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 12%;
-    --input: 0 0% 12%;
-    --ring: 0 0% 83.9%;
+    --border: var(--primary-hue) 30% 15%;
+    --input: var(--primary-hue) 30% 15%;
+    --ring: var(--primary-hue) 30% 80%;
   }
 }
 
@@ -200,15 +201,6 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply tracking-tight;
+    @apply bg-background text-foreground;
   }
 }

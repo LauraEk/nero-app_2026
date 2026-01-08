@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { useEffect } from 'react';
 import { useSettings } from '@/hooks/use-settings';
-import { hexToHSL } from '@/lib/theme-utils';
+import { hexToHSL, hexToHue } from '@/lib/theme-utils';
 
 import DashboardPage from '@/pages/DashboardPage';
 import AnkaufPage from '@/pages/AnkaufPage';
@@ -19,7 +19,9 @@ function App() {
     // Handle Primary Color
     if (settings.primaryColor) {
       const hsl = hexToHSL(settings.primaryColor);
+      const hue = hexToHue(settings.primaryColor);
       root.style.setProperty('--primary', hsl);
+      root.style.setProperty('--primary-hue', hue);
     }
 
     // Handle Theme

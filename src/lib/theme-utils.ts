@@ -34,3 +34,8 @@ export function hexToHSL(hex: string): string {
 
     return `${hDeg} ${sPct} ${lPct}`;
 }
+
+export function hexToHue(hex: string): string {
+    const hsl = hexToHSL(hex);
+    return hsl.split(' ')[0];
+}
