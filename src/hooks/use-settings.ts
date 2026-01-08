@@ -15,7 +15,7 @@ export interface CompanySettings {
 }
 
 const defaultSettings: CompanySettings = {
-    companyName: 'NERO Collectibles',
+    companyName: '',
     ownerName: '',
     address: '',
     email: '',

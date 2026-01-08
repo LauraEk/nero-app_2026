@@ -51,7 +51,7 @@ export default function DashboardPage() {
                     <div>
                         <p className="text-xs uppercase tracking-widest font-bold text-muted-foreground/80 mb-0.5">Hallo,</p>
                         <h1 className="text-2xl font-black leading-none tracking-tight">
-                            {settings.companyName || 'NERO Collectibles'}
+                            {settings.companyName || 'Dein Unternehmen'}
                         </h1>
                     </div>
                 </div>
