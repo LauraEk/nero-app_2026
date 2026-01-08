@@ -74,9 +74,10 @@ export default function DashboardPage() {
                 <div className="relative rounded-[26px] overflow-hidden p-7 shadow-2xl transition-all duration-300
                     bg-card text-card-foreground border border-border/50"
                 >
-                    {/* Card Background Pattern (Adaptive - Neutral) */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-zinc-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none dark:bg-white/5" />
-                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-zinc-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none dark:bg-white/5" />
+                    {/* Card Background Pattern (Adaptive - Dynamic Primary) */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
 
                     <div className="relative z-10 flex flex-col text-center space-y-7">
                         <div className="space-y-2 w-full flex flex-col items-center border-b border-zinc-200 dark:border-white/10 pb-7">
