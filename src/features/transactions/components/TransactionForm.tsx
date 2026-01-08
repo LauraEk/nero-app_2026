@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Save, ArrowDownCircle, ArrowUpCircle, HelpCircle } from 'lucide-react';
-import type { Transaction, TransactionItem, TransactionType } from '@/types';
+import { Plus, Trash2, Save, ArrowDownCircle, ArrowUpCircle, HelpCircle, CreditCard, Banknote, Building2 } from 'lucide-react';
+import type { Transaction, TransactionItem, TransactionType, PaymentMethod } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import { useTransactions } from '@/hooks/use-transactions';
 import { SignaturePad, type SignaturePadRef } from '@/components/ui/SignaturePad';
@@ -18,6 +18,7 @@ export function TransactionForm({ type }: TransactionFormProps) {
     const [partnerAddress, setPartnerAddress] = useState('');
     const [partnerEmail, setPartnerEmail] = useState('');
     const [taxMethod, setTaxMethod] = useState<'regular' | 'diff'>(type === 'sale' ? 'regular' : 'diff');
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cash');
     const [showTaxHelp, setShowTaxHelp] = useState(false);
     const [items, setItems] = useState<TransactionItem[]>([
         { id: crypto.randomUUID(), name: '', quantity: 1, price: 0, taxRate: type === 'sale' ? 19 : 0 }
@@ -118,7 +119,8 @@ export function TransactionForm({ type }: TransactionFormProps) {
             totalNet,
             totalTax,
             taxMethod,
-            signatureUrl: sigData || undefined
+            signatureUrl: sigData || undefined,
+            paymentMethod
         };
 
         addTransaction(transaction);
@@ -192,6 +194,47 @@ export function TransactionForm({ type }: TransactionFormProps) {
                         className="w-full p-2 rounded-md border bg-background"
                         placeholder="max.mustermann@beispiel.de"
                     />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium mb-2">
+                        Zahlungsmethode
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                        <button
+                            type="button"
+                            onClick={() => setPaymentMethod('cash')}
+                            className={`flex flex-col items-center justify-center p-3 rounded-lg border transition-all ${paymentMethod === 'cash'
+                                ? 'bg-emerald-50 border-emerald-500 text-emerald-700'
+                                : 'bg-background hover:bg-muted border-border'
+                                }`}
+                        >
+                            <Banknote size={24} className="mb-1" />
+                            <span className="text-xs font-medium">Bar</span>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setPaymentMethod('paypal')}
+                            className={`flex flex-col items-center justify-center p-3 rounded-lg border transition-all ${paymentMethod === 'paypal'
+                                ? 'bg-blue-50 border-blue-500 text-blue-700'
+                                : 'bg-background hover:bg-muted border-border'
+                                }`}
+                        >
+                            <CreditCard size={24} className="mb-1" />
+                            <span className="text-xs font-medium">PayPal</span>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setPaymentMethod('bank')}
+                            className={`flex flex-col items-center justify-center p-3 rounded-lg border transition-all ${paymentMethod === 'bank'
+                                ? 'bg-purple-50 border-purple-500 text-purple-700'
+                                : 'bg-background hover:bg-muted border-border'
+                                }`}
+                        >
+                            <Building2 size={24} className="mb-1" />
+                            <span className="text-xs font-medium">Bank</span>
+                        </button>
+                    </div>
                 </div>
 
                 {/* Tax Method Selection */}

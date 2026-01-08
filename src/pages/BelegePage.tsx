@@ -117,13 +117,22 @@ ${settings.companyName || 'NERO Collectibles'}`
         doc.text(`Beleg-Nr: ${displayId}`, 14, 80);
         doc.text(`Datum: ${t.date}`, 14, 85);
 
+        // Payment Method Map
+        const paymentLabel = {
+            'cash': 'Barzahlung',
+            'paypal': 'PayPal',
+            'bank': 'Banküberweisung',
+            undefined: 'Barzahlung' // Fallback for old records
+        }[t.paymentMethod || 'cash'] as string;
+
         const partnerLabel = t.type === 'sale' ? 'Kunde' : 'Verkäufer';
-        doc.text(`${partnerLabel}: ${t.partnerName || '-'}`, 14, 90);
+        doc.text(`Zahlungsart: ${paymentLabel}`, 14, 90);
+        doc.text(`${partnerLabel}: ${t.partnerName || '-'}`, 14, 100);
 
         // Partner Address (multiline)
         if (t.partnerAddress) {
             const splitAddress = doc.splitTextToSize(t.partnerAddress, 70);
-            doc.text(splitAddress, 14, 95);
+            doc.text(splitAddress, 14, 105);
         }
 
         // --- TABLE ---

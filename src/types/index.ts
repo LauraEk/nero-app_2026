@@ -1,4 +1,5 @@
 export type TransactionType = 'purchase' | 'sale';
+export type PaymentMethod = 'cash' | 'paypal' | 'bank';
 
 export interface TransactionItem {
     id: string;
@@ -22,4 +23,5 @@ export interface Transaction {
     taxMethod: 'regular' | 'diff';
     signatureUrl?: string; // Base64 signature image
     partnerEmail?: string; // Optional email for digital receipt
+    paymentMethod?: PaymentMethod; // New field
 }
