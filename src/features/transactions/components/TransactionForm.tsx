@@ -222,7 +222,11 @@ export function TransactionForm({ type }: TransactionFormProps) {
                             </label>
                         </div>
                         <p className="text-xs text-muted-foreground bg-muted p-2 rounded">
-                            INFO: Wählen Sie <strong>Regel</strong> für Neuwaren/Zubehör. Wählen Sie <strong>§25a</strong> für gebrauchte Sammlerstücke (Ankauf von Privat).
+                            {type === 'purchase' ? (
+                                <>INFO: Wählen Sie <strong>Regel</strong> beim Kauf vom Händler (mit MwSt). Wählen Sie <strong>§25a</strong> beim Ankauf von Privat.</>
+                            ) : (
+                                <>INFO: Wählen Sie <strong>§25a</strong>, wenn der Artikel ursprünglich aus einem Ankauf von Privat stammt.</>
+                            )}
                         </p>
                     </div>
                 </div>
