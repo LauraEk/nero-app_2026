@@ -65,31 +65,30 @@ export default function DashboardPage() {
                 </button>
             </div>
 
-            {/* UNIFIED HERO BLOCK - Balance + Actions */}
-            <div className="relative group animate-slide-up rounded-[32px] overflow-hidden shadow-2xl border border-border/50 bg-card" style={{ animationDelay: '100ms' }}>
+            {/* Dashboard Hero Section - Shared Gradient Layer */}
+            <div className="relative isolate flex flex-col gap-3">
+                {/* 
+                   SHARED CONTINUOUS GRADIENT
+                   This element sits behind all 3 cards and creates the unified flow effect.
+                   It spans the full height of the container.
+                */}
+                <div className="absolute inset-0 -z-10 rounded-[32px] bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-80" />
+                <div className="absolute top-0 right-0 -z-10 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
 
-                {/* Shared Background Gradient across the whole block */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-
-                {/* Content Container */}
-                <div className="relative z-10 flex flex-col">
-
-                    {/* TOP SECTION: BALANCE */}
-                    <div className="p-8 pb-6 flex flex-col items-center text-center space-y-6">
-                        <div className="space-y-2 w-full flex flex-col items-center">
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase backdrop-blur-md border 
-                                bg-background/50 text-muted-foreground border-border/50 shadow-sm"
-                            >
-                                <Sparkles size={10} className="text-muted-foreground" /> Aktuelle Bilanz
+                {/* 1. HERO CARD (Balance) */}
+                <div className="relative overflow-hidden rounded-[26px] p-7 shadow-lg border border-border/50 bg-card/40 backdrop-blur-sm transition-all duration-300">
+                    <div className="flex flex-col text-center space-y-7">
+                        <div className="space-y-2 w-full flex flex-col items-center border-b border-border/10 pb-7">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase border border-border/20 bg-background/50 shadow-sm text-foreground/70">
+                                <Sparkles size={10} /> Aktuelle Bilanz
                             </span>
                             <h2 className={`text-5xl font-extrabold tracking-tighter ${hideValues ? 'blur-md select-none opacity-50 scale-95' : ''} transition-all duration-300`}>
                                 {hideValues ? '8.888€' : <CountUp end={totalProfit} suffix="€" duration={1.5} />}
                             </h2>
                         </div>
 
-                        {/* Stats Row (Income/Expense) */}
-                        <div className="grid grid-cols-2 w-full gap-8 border-b border-border/10 pb-6">
+                        {/* Stats Row */}
+                        <div className="grid grid-cols-2 w-full gap-8">
                             <div className="text-center space-y-1">
                                 <div className="flex items-center justify-center gap-1.5 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider opacity-90">
                                     <TrendingUp size={12} /> Einnahmen
@@ -108,36 +107,39 @@ export default function DashboardPage() {
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    {/* BOTTOM SECTION: ACTIONS (Integrated) */}
-                    <div className="grid grid-cols-2 bg-muted/30 divide-x divide-border/10">
-                        <Link
-                            to="/ankauf"
-                            className="group relative flex flex-col items-center justify-center gap-2 p-6 hover:bg-orange-500/5 transition-colors active:scale-[0.98] duration-200"
-                        >
-                            <div className="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
-                                <ArrowDownCircle size={20} />
-                            </div>
-                            <div className="text-center">
-                                <span className="block font-bold text-sm">Ankauf</span>
-                                <span className="text-[10px] text-muted-foreground uppercase">Ausgabe</span>
-                            </div>
-                        </Link>
+                {/* 2. & 3. ACTION BUTTONS (Ankauf/Verkauf) */}
+                <div className="grid grid-cols-2 gap-3">
+                    <Link
+                        to="/ankauf"
+                        className="group relative overflow-hidden flex flex-col items-center justify-center gap-3 p-5 rounded-[20px] 
+                            bg-card/40 backdrop-blur-sm border border-border/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300
+                            hover:bg-card/60 hover:border-orange-200 dark:hover:border-orange-500/30"
+                    >
+                        <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                            <ArrowDownCircle size={24} />
+                        </div>
+                        <div className="text-center">
+                            <span className="block font-bold text-base text-foreground">Ankauf</span>
+                            <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide group-hover:text-orange-600/80 dark:group-hover:text-orange-400/80 transition-colors">Ausgabe</span>
+                        </div>
+                    </Link>
 
-                        <Link
-                            to="/verkauf"
-                            className="group relative flex flex-col items-center justify-center gap-2 p-6 hover:bg-emerald-500/5 transition-colors active:scale-[0.98] duration-200"
-                        >
-                            <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
-                                <ArrowUpCircle size={20} />
-                            </div>
-                            <div className="text-center">
-                                <span className="block font-bold text-sm">Verkauf</span>
-                                <span className="text-[10px] text-muted-foreground uppercase">Einnahme</span>
-                            </div>
-                        </Link>
-                    </div>
-
+                    <Link
+                        to="/verkauf"
+                        className="group relative overflow-hidden flex flex-col items-center justify-center gap-3 p-5 rounded-[20px] 
+                            bg-card/40 backdrop-blur-sm border border-border/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300
+                            hover:bg-card/60 hover:border-emerald-200 dark:hover:border-emerald-500/30"
+                    >
+                        <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                            <ArrowUpCircle size={24} />
+                        </div>
+                        <div className="text-center">
+                            <span className="block font-bold text-base text-foreground">Verkauf</span>
+                            <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide group-hover:text-emerald-600/80 dark:group-hover:text-emerald-400/80 transition-colors">Einnahme</span>
+                        </div>
+                    </Link>
                 </div>
             </div>
 
