@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Save, ArrowDownCircle, ArrowUpCircle } from 'lucide-react';
+import { Plus, Trash2, Save, ArrowDownCircle, ArrowUpCircle, HelpCircle } from 'lucide-react';
 import type { Transaction, TransactionItem, TransactionType } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import { useTransactions } from '@/hooks/use-transactions';
@@ -18,6 +18,7 @@ export function TransactionForm({ type }: TransactionFormProps) {
     const [partnerAddress, setPartnerAddress] = useState('');
     const [partnerEmail, setPartnerEmail] = useState('');
     const [taxMethod, setTaxMethod] = useState<'regular' | 'diff'>(type === 'sale' ? 'regular' : 'diff');
+    const [showTaxHelp, setShowTaxHelp] = useState(false);
     const [items, setItems] = useState<TransactionItem[]>([
         { id: crypto.randomUUID(), name: '', quantity: 1, price: 0, taxRate: type === 'sale' ? 19 : 0 }
     ]);
@@ -221,13 +222,44 @@ export function TransactionForm({ type }: TransactionFormProps) {
                                 <span className="text-sm">Differenzbesteuerung (§25a)</span>
                             </label>
                         </div>
-                        <p className="text-xs text-muted-foreground bg-muted p-2 rounded">
-                            {type === 'purchase' ? (
-                                <>INFO: Wählen Sie <strong>Regel</strong> beim Kauf vom Händler (mit MwSt). Wählen Sie <strong>§25a</strong> beim Ankauf von Privat.</>
-                            ) : (
-                                <>INFO: Wählen Sie <strong>§25a</strong>, wenn der Artikel ursprünglich aus einem Ankauf von Privat stammt.</>
+                        <div className="text-xs text-muted-foreground bg-muted p-2 rounded relative">
+                            <div className="flex gap-2 items-start">
+                                <p className="flex-1">
+                                    {type === 'purchase' ? (
+                                        <>INFO: Wählen Sie <strong>Regel</strong> beim Kauf vom Händler (mit MwSt). Wählen Sie <strong>§25a</strong> beim Ankauf von Privat.</>
+                                    ) : (
+                                        <>INFO: Wählen Sie <strong>§25a</strong>, wenn der Artikel ursprünglich aus einem Ankauf von Privat stammt.</>
+                                    )}
+                                </p>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowTaxHelp(!showTaxHelp)}
+                                    className="text-primary hover:scale-110 transition-transform flex-shrink-0"
+                                    title="Mehr Infos zur Besteuerung"
+                                >
+                                    <HelpCircle size={16} />
+                                </button>
+                            </div>
+
+                            {/* Expandable Explanation */}
+                            {showTaxHelp && (
+                                <div className="mt-2 pt-2 border-t border-border/50 text-[11px] leading-relaxed animate-fade-in">
+                                    <p className="mb-1"><strong>Warum ist das wichtig?</strong></p>
+                                    {type === 'sale' ? (
+                                        <p>
+                                            Bei der <strong>Differenzbesteuerung (§25a)</strong> zahlen Sie Umsatzsteuer nur auf Ihren <em>Gewinn</em> (Marge).<br />
+                                            Beispiel: Einkauf 100€, Verkauf 150€. Steuer fällt nur auf die 50€ Gewinn an.<br /><br />
+                                            Würden Sie fälschlicherweise <strong>Regelbesteuerung</strong> wählen, müssten Sie 19% auf die vollen 150€ zahlen, was Ihren Gewinn deutlich schmälern würde.
+                                        </p>
+                                    ) : (
+                                        <p>
+                                            Wenn Sie von Privatpersonen kaufen, können Sie keine Vorsteuer ziehen. Diese Artikel müssen markiert werden, damit Sie sie später differenzbesteuert (§25a) verkaufen können.<br />
+                                            Kaufen Sie von Händlern (Regel), können Sie die MwSt. absetzen.
+                                        </p>
+                                    )}
+                                </div>
                             )}
-                        </p>
+                        </div>
                     </div>
                 </div>
 
