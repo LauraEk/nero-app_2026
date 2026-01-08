@@ -81,6 +81,25 @@ export default function InfoPage() {
                     </div>
                 </div>
 
+                {/* Important: Data Security */}
+                <div className="p-4 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-900/50 rounded-xl">
+                    <h4 className="font-bold text-amber-800 dark:text-amber-500 flex items-center gap-2 mb-2">
+                        ⚠️ Wichtig: Datensicherheit
+                    </h4>
+                    <ul className="text-sm text-muted-foreground space-y-2 list-disc list-inside">
+                        <li>
+                            <strong>Daten-Speicher:</strong> Alle deine Eingaben werden sicher <em>in deinem Browser</em> gespeichert. Wir haben keinen Zugriff darauf.
+                        </li>
+                        <li>
+                            <strong>PDFs:</strong> Werden nicht gespeichert! Sie werden bei jedem Download neu erstellt. <br />
+                            <span className="font-semibold text-foreground">Empfehlung:</span> Speichere deine PDF-Belege nach dem Download sofort in einer Cloud (Google Drive, iCloud, Dropbox) oder auf einer Festplatte.
+                        </li>
+                        <li>
+                            <strong>Backup:</strong> Nutze regelmäßig die "Backup"-Funktion in den Einstellungen, besonders wenn du den Browser-Cache löschst oder das Gerät wechselst.
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
             {/* Footer / Vision */}

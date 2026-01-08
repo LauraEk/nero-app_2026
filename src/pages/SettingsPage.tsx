@@ -1,11 +1,45 @@
 import { Link } from 'react-router-dom';
 import { useRef } from 'react';
 import { useSettings } from '@/hooks/use-settings';
-import { Upload, Settings as SettingsIcon, Info as InfoIcon } from 'lucide-react';
+import { useTransactions } from '@/hooks/use-transactions';
+import { Upload, Settings as SettingsIcon, Info as InfoIcon, Download, UploadCloud, Database } from 'lucide-react';
 
 export default function SettingsPage() {
     const { settings, updateSettings } = useSettings();
+    const { transactions, importTransactions } = useTransactions();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const backupInputRef = useRef<HTMLInputElement>(null);
+
+    const handleExportData = () => {
+        const dataStr = JSON.stringify(transactions, null, 2);
+        const blob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `nero_backup_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const handleImportData = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const importedData = JSON.parse(event.target?.result as string);
+                    if (Array.isArray(importedData)) {
+                        importTransactions(importedData);
+                        alert("Backup erfolgreich geladen!");
+                    }
+                } catch (error) {
+                    alert("Fehler beim Laden der Datei.");
+                }
+            };
+            reader.readAsText(file);
+        }
+    };
 
     const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -197,6 +231,40 @@ export default function SettingsPage() {
                             onChange={(e) => updateSettings({ taxId: e.target.value })}
                             className="w-full p-2 rounded-md border bg-background"
                             placeholder="DE123456789"
+                        />
+                    </div>
+                </div>
+
+                {/* Data Backup Section */}
+                <div className="bg-card p-4 rounded-lg border shadow-sm space-y-4">
+                    <h2 className="font-semibold flex items-center gap-2">
+                        <Database size={18} /> Datensicherheit & Backup
+                    </h2>
+                    <p className="text-xs text-muted-foreground">
+                        Deine Daten sind nur auf diesem Gerät gespeichert. Erstelle regelmäßig Backups, um Datenverlust vorzubeugen.
+                    </p>
+                    <div className="flex gap-4">
+                        <button
+                            onClick={handleExportData}
+                            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+                        >
+                            <Download size={16} />
+                            Backup erstellen
+                        </button>
+
+                        <button
+                            onClick={() => backupInputRef.current?.click()}
+                            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-secondary text-secondary-foreground rounded-lg text-sm font-medium hover:bg-secondary/80 transition-opacity"
+                        >
+                            <UploadCloud size={16} />
+                            Backup laden
+                        </button>
+                        <input
+                            type="file"
+                            accept=".json"
+                            className="hidden"
+                            ref={backupInputRef}
+                            onChange={handleImportData}
                         />
                     </div>
                 </div>

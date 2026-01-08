@@ -21,9 +21,14 @@ export function useTransactions() {
         setTransactions(prev => prev.filter(t => t.id !== id));
     };
 
+    const importTransactions = (newTransactions: Transaction[]) => {
+        setTransactions(newTransactions);
+    };
+
     return {
         transactions,
         addTransaction,
-        deleteTransaction
+        deleteTransaction,
+        importTransactions
     };
 }
