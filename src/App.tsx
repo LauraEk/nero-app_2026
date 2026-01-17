@@ -11,6 +11,8 @@ import BelegePage from '@/pages/BelegePage';
 import SettingsPage from '@/pages/SettingsPage';
 import InfoPage from '@/pages/InfoPage';
 
+import CashClosingPage from '@/pages/CashClosingPage';
+
 function App() {
   const { settings } = useSettings();
 
@@ -45,6 +47,7 @@ function App() {
         <Route path="ankauf" element={<AnkaufPage />} />
         <Route path="verkauf" element={<VerkaufPage />} />
         <Route path="belege" element={<BelegePage />} />
+        <Route path="cash-closing" element={<CashClosingPage />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path="info" element={<InfoPage />} />
       </Route>

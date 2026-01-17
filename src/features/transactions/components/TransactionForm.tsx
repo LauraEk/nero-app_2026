@@ -367,7 +367,6 @@ export function TransactionForm({ type }: TransactionFormProps) {
                                     disabled={taxMethod === 'diff'} // Disable for Diff Tax
                                 >
                                     <option value={19}>19%</option>
-                                    <option value={7}>7%</option>
                                     <option value={0}>0%</option>
                                 </select>
                             </div>

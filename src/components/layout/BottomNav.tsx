@@ -1,4 +1,4 @@
-import { Home, FileText, Settings, ArrowDownCircle, ArrowUpCircle } from 'lucide-react';
+import { Home, FileText, Settings, ArrowDownCircle, ArrowUpCircle, Calculator } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 export function BottomNav() {
@@ -7,6 +7,7 @@ export function BottomNav() {
         { path: '/ankauf', label: 'Ankauf', icon: ArrowDownCircle },
         { path: '/verkauf', label: 'Verkauf', icon: ArrowUpCircle },
         { path: '/belege', label: 'Belege', icon: FileText },
+        { path: '/cash-closing', label: 'Kasse', icon: Calculator },
         { path: '/settings', label: 'Settings', icon: Settings },
     ];
 
