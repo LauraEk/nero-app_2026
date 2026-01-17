@@ -1,4 +1,4 @@
-import { ArrowLeft, BookOpen, Calculator, Scale, FileText, Info } from 'lucide-react';
+import { ArrowLeft, BookOpen, Calculator, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function InfoPage() {

@@ -118,12 +118,13 @@ ${settings.companyName || 'NERO Collectibles'}`
         doc.text(`Datum: ${t.date}`, 14, 85);
 
         // Payment Method Map
-        const paymentLabel = {
+        const paymentMap: Record<string, string> = {
             'cash': 'Barzahlung',
             'paypal': 'PayPal',
-            'bank': 'Banküberweisung',
-            undefined: 'Barzahlung' // Fallback for old records
-        }[t.paymentMethod || 'cash'] as string;
+            'bank': 'Banküberweisung'
+        };
+        const method = t.paymentMethod || 'cash';
+        const paymentLabel = paymentMap[method] || 'Barzahlung';
 
         const partnerLabel = t.type === 'sale' ? 'Kunde' : 'Verkäufer';
         doc.text(`Zahlungsart: ${paymentLabel}`, 14, 90);

@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useTransactions } from '@/hooks/use-transactions';
 import { useSettings } from '@/hooks/use-settings';
-import { Calculator, FileDown, Save } from 'lucide-react';
+import { Calculator, FileDown } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
